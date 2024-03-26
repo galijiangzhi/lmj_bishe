@@ -54,7 +54,7 @@
     h2{
         position: relative;
         font-size: 40px;
-        color:#ccc;
+        color:#999;
         background-color:#fff;
         -webkit-text-stroke:1px #382d52;
         text-transform: uppercase;
@@ -69,10 +69,10 @@
         top: 0;
         left: 0;
         width: 0;
-        height: 100%;
+        height: 110%;
         color:#000;
         -webkit-text-stroke: 0vm #383d52;
-        border-right: 2px solid #01fe87;
+        border-right: 2px solid #111;
         overflow:hidden;
         animation:animate 6s linear infinite;
         z-index: 2;

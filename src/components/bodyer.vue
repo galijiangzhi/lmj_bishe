@@ -1,27 +1,23 @@
 <template>
     <div class="left_div">
         <div :style="div1_st">
-            <!-- <button :style="but_st" @click="showComponent('Author')" class="button">作者信息</button>
-            <button :style="but_st" @click="showComponent('Project')" class="button">项目介绍</button>
-            <button :style="but_st" @click="showComponent('Technology')" class="button">主要技术</button>
-            <button :style="but_st" @click="showComponent('Prospect')" class="button">未来展望</button>
-            <button :style="but_st" @click="showComponent('xiangmutedian')" class="button">项目特点</button> -->
                 <wind />
         </div>
-        <div :style="div2_st">
-        <component :is="selectedComponent" />
-      </div>
     </div>
     <div class="right_div">
         <Right_div />
+        <div :style="bott_st" ref="bottSt">
+            <div :style="in_st" @click="triggerFileInput" @mouseover="handleMouseE" @mouseout="handleMouseL">
+                <input ref="fileInput" type="file" @change="handleFileUpload" style="display: none;">
+                上传文件
+            </div>
+            <div :style="do_st" @mouseenter="doin" @mouseover="handleMouseE" @mouseout="handleMouseL">
+                保存文件
+            </div>
+        </div>
     </div>
 </template>
 <script>
-    import Zuozhe from "./bodyer/zuozhe.vue";
-    import Xiangmu from "./bodyer/xiangmu.vue";
-    import Jishu from "./bodyer/jishu.vue";
-    import Weilai from "./bodyer/weilai.vue";
-    import xiangmu from "./bodyer/xiangmu.vue";
     import Right_div from "./bodyer/right_div.vue";
     import Wind from "./bodyer/wind.vue"
 
@@ -39,9 +35,6 @@
                     zIndex: "1",
                     // overflow: "hidden",
                 },
-                but_st:{
-                    flex:"1"
-                },
                 div2_st: {
                     flex: "1",
                     // backgroundColor: "lightgreen",
@@ -50,13 +43,57 @@
                     justifyContent: "flex-start",  // 垂直向上对齐
                     alignItems: "center",
                     overflow: 'auto' ,
-                    background:"black"
+                    background:"black",
+                },
+                in_st: {
+                    position: "absolute",
+                    top:"580px",
+                    left:"200px",
+                    width: "150px",
+                    height: "50px",
+                    backgroundColor: "rgba(20,20,20,0.7)",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    cursor: "pointer",
+                    boxShadowStyle:'none',
+                    pointerEvents:"all",
+                    color:"#fff",
+                    boxShadow:"0 0 3px 1px rgba(255, 255, 255, 0.7)"
+                    // position: "absolute",
+                },
+                do_st: {
+                    position: "absolute",
+                    top:"580px",
+                    left:"960px",
+                    width: "150px",
+                    height: "50px",
+                    backgroundColor: "rgba(20,20,20,0.7)",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    cursor: "pointer",
+                    boxShadowStyle:'none',
+                    pointerEvents:"all",
+                    color:"#fff",
+                    boxShadow:"0 0 3px 1px rgba(255, 255, 255, 0.7)"
+                    // position: "absolute",
                 },
             }
         },
         components:{
             Right_div,
             Wind,
+        },
+        methods:{
+        handleMouseE(event){
+            event.target.style.background = "rgba(150,150,150,0.5)";
+            event.target.style.boxShadow = "0 0 10px 1px rgba(255, 255, 255, 0.7)";
+        },
+        handleMouseL(event){
+            event.target.style.background = "rgba(20,20,20,0.7)";
+            event.target.style.boxShadow = "0 0 3px 1px rgba(255, 255, 255, 0.7)";
+        }
         }
     }
 </script>
@@ -69,8 +106,19 @@
         flex-direction:column
     }
     .right_div{
-        height:100%;
-        flex:1;
-        background:pink;
+        position: absolute;
+        left:500px;
+        top:230px;
+        height:640px;
+        min-width:1350px;
+        background:rgba(1,1,1,0.8);
+        pointer-events:none;
+        border-radius: 20px;
+        z-index: 2;
+        box-shadow: 0 0 10px #aaa,
+                        0 0 20px #222,
+                        0 0 40px #222,
+                        0 0 50px #222;
+        -webkit-box-reflect: below 5px linear-gradient(transparent,#555);
     }
 </style>
