@@ -59,7 +59,8 @@
                     boxShadowStyle:'none',
                     pointerEvents:"all",
                     color:"#fff",
-                    boxShadow:"0 0 3px 1px rgba(255, 255, 255, 0.7)"
+                    boxShadow:"0 0 3px 1px rgba(255, 255, 255, 0.7)",
+                    userSelect: "none"
                     // position: "absolute",
                 },
                 do_st: {
@@ -76,7 +77,8 @@
                     boxShadowStyle:'none',
                     pointerEvents:"all",
                     color:"#fff",
-                    boxShadow:"0 0 3px 1px rgba(255, 255, 255, 0.7)"
+                    boxShadow:"0 0 3px 1px rgba(255, 255, 255, 0.7)",
+                    userSelect: "none"
                     // position: "absolute",
                 },
             }
