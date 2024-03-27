@@ -16,7 +16,6 @@
                 Ttitle,
             }
         }
-
 </script>
 <style scoped>
     .logo {

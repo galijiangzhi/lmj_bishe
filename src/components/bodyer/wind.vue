@@ -1,10 +1,14 @@
 <template>
     <div class="div1" id="div1">
         <div class="div2" style="--i:1">
-            <div class="div3">作者介绍</div>
+            <div class="div3">
+                <Lianxi />
+            </div>
         </div>
         <div class="div2" style="--i:2">
-            <div class="div3">项目介绍</div>
+            <div class="div3">
+                <Zhanwang />
+            </div>
         </div>
         <div class="div2" style="--i:3">
             <div class="div3">
@@ -33,6 +37,8 @@
 import Zuozhe from './wind/zuozhe.vue'
 import Xiangmu from './wind/xiangmu.vue'
 import Jishu from './wind/jishu.vue'
+import Zhanwang from './wind/zhanwang.vue'
+import Lianxi from './wind/lianxi.vue'
 export default {
     data(){
         return{
@@ -51,7 +57,6 @@ export default {
                 left:"350px",
                 justifyContent: "center", /* 水平居中 */
                 alignItems: "center" /* 垂直居中 */
-                
             },
             nizhuan:{
                 height:"50px",
@@ -105,6 +110,8 @@ export default {
         Zuozhe,
         Xiangmu,
         Jishu,
+        Zhanwang,
+        Lianxi
     },
 }
 </script>
