@@ -86,14 +86,42 @@
             Wind,
         },
         methods:{
-        handleMouseE(event){
-            event.target.style.background = "rgba(150,150,150,0.5)";
-            event.target.style.boxShadow = "0 0 10px 1px rgba(255, 255, 255, 0.7)";
-        },
-        handleMouseL(event){
-            event.target.style.background = "rgba(20,20,20,0.7)";
-            event.target.style.boxShadow = "0 0 3px 1px rgba(255, 255, 255, 0.7)";
-        }
+            handleMouseE(event){
+                event.target.style.background = "rgba(150,150,150,0.5)";
+                event.target.style.boxShadow = "0 0 10px 1px rgba(255, 255, 255, 0.7)";
+            },
+            handleMouseL(event){
+                event.target.style.background = "rgba(20,20,20,0.7)";
+                event.target.style.boxShadow = "0 0 3px 1px rgba(255, 255, 255, 0.7)";
+            },
+            triggerFileInput() {
+                this.$refs.fileInput.click();
+            },
+            handleFileUpload(event) {
+                const formData = new FormData();
+                this.imageUrl = null;
+                // this.$data.showComponent=1,
+                // formData.append('file', event.target.files[0]);
+                // axios.post('http://www.asuka.sanyueyu.top/upload', formData, {
+                // headers: {
+                //     'Content-Type': 'multipart/form-data'
+                // },
+                // responseType: 'arraybuffer' // 设置响应类型为arraybuffer
+                // })
+                // .then(response => {
+                // // 将后端返回的图片数据赋值给imageUrl
+                // const blob = new Blob([response.data], { type: 'image/jpeg' }); // 创建Blob对象
+                // this.imageBlob = blob; 
+                // const imageUrl = URL.createObjectURL(blob); // 通过URL.createObjectURL将blob转换为URL
+                // this.$data.showComponent=0,
+                // this.imageUrl = imageUrl; // 将URL赋值给组件的imageUrl
+                // })
+                // .catch(error => {
+                // // 处理错误
+                // console.error('Error uploading file:', error);
+                // });
+            },
+
         }
     }
 </script>
