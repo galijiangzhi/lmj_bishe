@@ -7,6 +7,10 @@
     <div class="right_div">
         <Right_div />
         <div :style="bott_st" ref="bottSt">
+            <div :style="imgf">
+                <img :style="imgdiv" v-if="imageUrl" :src="imageUrl"/>
+            </div>
+            <div :style="textdiv"></div>
             <div :style="in_st" @click="triggerFileInput" @mouseover="handleMouseE" @mouseout="handleMouseL">
                 <input ref="fileInput" type="file" @change="handleFileUpload" style="display: none;">
                 上传文件
@@ -20,6 +24,7 @@
 <script>
     import Right_div from "./bodyer/right_div.vue";
     import Wind from "./bodyer/wind.vue"
+    import axios from 'axios'
 
     export default {
         data() {
@@ -81,6 +86,37 @@
                     userSelect: "none"
                     // position: "absolute",
                 },
+                imgf:{
+                    position: "absolute",
+                    left:"30px",
+                    top:"30px",
+                    width: "950px",
+                    height: "510px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    // background:"red",
+                    url:""
+                },
+                imgdiv:{
+                    // width: "950px",
+                    maxHeight:"100%",
+                    maxWidth:"100%",
+                    objectFit: "cover",
+                    url:""
+                },
+                textdiv:{
+                    position: "absolute",
+                    left:"1010px",
+                    top:"30px",
+                    width: "310px",
+                    height: "510px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    background:"red"
+                },
+                imageUrl: ''
             }
         },
         components:{
@@ -100,18 +136,27 @@
                 this.$refs.fileInput.click();
             },
             handleFileUpload(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                    this.imageUrl = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+
                 const formData = new FormData();
                 this.imageUrl = null;
-                // this.$data.showComponent=1,
-                // formData.append('file', event.target.files[0]);
-                // axios.post('http://www.asuka.sanyueyu.top/upload', formData, {
-                // headers: {
-                //     'Content-Type': 'multipart/form-data'
-                // },
-                // responseType: 'arraybuffer' // 设置响应类型为arraybuffer
-                // })
-                // .then(response => {
+                formData.append('file', event.target.files[0]);
+
+                axios.post('http://www.asuka.sanyueyu.top/lmj', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                })
+                .then(response => {
                 // // 将后端返回的图片数据赋值给imageUrl
+                console.log(response)
                 // const blob = new Blob([response.data], { type: 'image/jpeg' }); // 创建Blob对象
                 // this.imageBlob = blob; 
                 // const imageUrl = URL.createObjectURL(blob); // 通过URL.createObjectURL将blob转换为URL
@@ -121,7 +166,11 @@
                 // .catch(error => {
                 // // 处理错误
                 // console.error('Error uploading file:', error);
-                // });
+                })
+                .catch(error => {
+                // 处理上传失败的逻辑
+                console.log("shibai")
+                });
             },
 
         }
