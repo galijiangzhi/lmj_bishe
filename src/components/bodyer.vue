@@ -8,21 +8,25 @@
         <Right_div />
         <div :style="bott_st" ref="bottSt">
             <div :style="imgf">
-                <img :style="imgdiv" v-if="imageUrl" :src="imageUrl"/>
+                <img :style="imgdiv" v-if="imageUrl" :src="imageUrl" id="imgimg"/>
             </div>
-            <div :style="textdiv"></div>
+            <div :style="textdiv" id="texttext">{{ response_text }}</div>
             <div :style="in_st" @click="triggerFileInput" @mouseover="handleMouseE" @mouseout="handleMouseL">
                 <input ref="fileInput" type="file" @change="handleFileUpload" style="display: none;">
                 上传文件
             </div>
-            <div :style="do_st" @mouseenter="doin" @mouseover="handleMouseE" @mouseout="handleMouseL">
+            <div :style="do_st" @mouseenter="doin" @mouseover="handleMouseE" @mouseout="handleMouseL" @click="downtext">
                 保存文件
             </div>
+        </div>
+        <div v-if="downshow" :style="downdiv">
+            <Download />
         </div>
     </div>
 </template>
 <script>
     import Right_div from "./bodyer/right_div.vue";
+    import Download from "./bodyer/downlowd/download.vue"
     import Wind from "./bodyer/wind.vue"
     import axios from 'axios'
 
@@ -111,19 +115,45 @@
                     top:"30px",
                     width: "310px",
                     height: "510px",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    background:"red"
+                    background:"rgba(255,255,255,0.1)",
+                    fontSize:"50px",
+                    color:"rgba(175,175,175)",
+                    paddingLeft:"30px",
+                    borderRadius:"10px"
                 },
-                imageUrl: ''
+                downdiv:{
+                    position:"absolute",
+                    top:"-200px",
+                    left:"1045px",
+                    zIndex:"500"
+                },
+                imageUrl: '',
+                response_text:'',
+                downshow:0,
             }
         },
         components:{
             Right_div,
             Wind,
+            Download,
         },
         methods:{
+            downtext() {
+                // 获取图片和文本内容
+                let img = document.getElementById('imgimg').src;
+                let text = this.response_text
+
+                // 创建一个新的 Blob 对象
+                let blob = new Blob([text], { type: 'text/plain' });
+
+                // 创建一个超链接并设置其下载属性
+                let link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'savedFile.txt';
+
+                // 模拟点击链接以触发下载
+                link.click();
+            },
             handleMouseE(event){
                 event.target.style.background = "rgba(150,150,150,0.5)";
                 event.target.style.boxShadow = "0 0 10px 1px rgba(255, 255, 255, 0.7)";
@@ -144,11 +174,10 @@
                     };
                     reader.readAsDataURL(file);
                 }
-
+                this.downshow=1;
                 const formData = new FormData();
                 this.imageUrl = null;
                 formData.append('file', event.target.files[0]);
-
                 axios.post('http://www.asuka.sanyueyu.top/lmj', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -157,6 +186,8 @@
                 .then(response => {
                 // // 将后端返回的图片数据赋值给imageUrl
                 console.log(response)
+                this.downshow=0;
+                this.response_text=response.data
                 // const blob = new Blob([response.data], { type: 'image/jpeg' }); // 创建Blob对象
                 // this.imageBlob = blob; 
                 // const imageUrl = URL.createObjectURL(blob); // 通过URL.createObjectURL将blob转换为URL
