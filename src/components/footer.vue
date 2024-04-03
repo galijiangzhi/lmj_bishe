@@ -1,4 +1,4 @@
 <template>
-    <div>联系方式，备注等等</div>
+    <div></div>
 </template>
 <script></script>
